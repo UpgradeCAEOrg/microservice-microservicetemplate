@@ -135,8 +135,24 @@ public class RestfulExample extends RESTService {
   })
   @ApiOperation(value = "getTrack", notes = " ")
   public Response getTrack(@PathParam("trackId") String trackId) {
-
-    return null;
+ try{
+        Connection conn = dbm.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM track where trackId = ?;");
+        stmt.setString(1, trackId.toString());
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            JSONObject ro = new JSONObject();
+            ro.put("trackId", rs.getString(2));
+            ro.put("singer", rs.getString(1));
+            return Response.status(HttpURLConnection.HTTP_OK).entity(ro.toJSONString()).build();
+            
+        }
+        JSONObject ro = new JSONObject();
+        return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(ro.toJSONString()).build();
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return null;
+    }
   }
 
 
