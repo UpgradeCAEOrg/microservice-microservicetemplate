@@ -136,12 +136,6 @@ public class RestfulExample extends RESTService {
   @ApiOperation(value = "getTrack", notes = " ")
   public Response getTrack(@PathParam("trackId") String trackId) {
 
-    // trackFound
-    boolean trackFound_condition = true;
-    if(trackFound_condition) {
-      JSONObject trackFound = new JSONObject();
-      return Response.status(HttpURLConnection.HTTP_OK).entity(trackFound.toJSONString()).build();
-    }
     return null;
   }
 
