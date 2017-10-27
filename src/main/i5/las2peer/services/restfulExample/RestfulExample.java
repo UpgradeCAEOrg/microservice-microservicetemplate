@@ -137,7 +137,7 @@ public class RestfulExample extends RESTService {
   public Response getTrack(@PathParam("trackId") String trackId) {
  try{
         Connection conn = dbm.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM track where trackId = ?;");
+        PreparedStatement stmt = conn.prepareStatement("SELECT singer FROM track where trackId = ?;");
         stmt.setString(1, trackId.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
